@@ -12,13 +12,6 @@ function start() {
 
 function init() {
     g.wordList = "the,that,not,look,put,and,with,then,don't,could,a,all,were,come,house,to,we,go,will,old,said,can,little,into,too,in,are,as,back,by,he,up,no,from,day,I,had,mum,children,made,of,my,one,him,time,it,her,them,Mr,I'm,was,what,do,get,if,you,there,me,just,help,they,out,down,now,Mrs,on,this,dad,came,called,she,have,big,oh,here,is,went,when,about,off,for,be,it's,got,asked,at,like,see,their,saw,his,some,looked,people,make,but,so,very,your,an".split(",");
-
-    $("#reset").click(function () {
-        g.currentGuess = "";
-        $("#answer").html("");
-        $(".wordLetter").css("color", "red");
-        $(".wordLetter").attr("data-used", "0");
-    });
 }
 
 function newGame() {
@@ -26,48 +19,52 @@ function newGame() {
     g.score = 0;
     g.currentGuess = "";
     g.currentWord = "";
-    $("#answerTick").css("display", "none");
-    $("#reset").css("display", "inline-block");
+    g.currentWordJumbled = "";
     newRound();
 }
 
 function newRound() {
-    // resets
-    g.currentGuess = "";
-    $("#word").click(function (e) {
-        checkLetterClick(e);
-    });
     // pick word
     var newWord = Math.floor(Math.random() * g.wordList.length);
     g.currentWord = g.wordList[newWord];
+    g.currentWordJumbled = g.currentWord;
     console.log(g.currentWord);
-    for (i = 0; i < g.currentWord.length; i++) {
+    // jumble
+    var wArr = g.currentWordJumbled.split("");
+    for (i = 0; i < 10; i++) {
+        var an = Math.floor(Math.random() * g.currentWordJumbled.length)
+        var bn = Math.floor(Math.random() * g.currentWordJumbled.length)
+        var c = wArr[an];
+        wArr[an] = wArr[bn];
+        wArr[bn] = c;
+    }
+    g.currentWordJumbled = wArr.join("");
+
+    for (i = 0; i < g.currentWordJumbled.length; i++) {
         var div = $("<div>", { id: "wordLetter" + i, class: "wordLetter" });
-        div.html(g.currentWord.substr(i, 1));
+        div.html(g.currentWordJumbled.substr(i, 1));
         $("#word").append(div);
     }
+
+    // sctivate click
+    $("#word").click(function (e) {
+        letterClicked(e);
+    })
+
+    // stuff
+    $("#reset").css("display", "inline-block");
 }
 
-function nextRound() {
-    console.log("Next Round");
-}
+function letterClicked(e) {
+    var clicked = e.target;
+    var id = clicked.id;
+    var letter = $(clicked).text();
+    console.log("Click " + id + " = " + letter);
 
-function checkLetterClick(e) {
-    if (g.currentWord) {
-        var word = e.target.id;
-        if ($("#" + word).attr("data-used") !== "1") {
-            console.log("click " + e.target.id + " which is " + $("#" + e.target.id).text());
-            $("#" + word).attr("data-used", "1");
-            $("#" + word).css("color", "silver");
-            g.currentGuess += $("#" + word).text();
-            console.log(":" + g.currentGuess);
-            $("#answer").html(g.currentGuess);
-        }
-        if (g.currentGuess === g.currentWord) {
-            console.log("Correct.");
-            $("#answerTick").css("display", "inline-block");
-            $("#reset").css("display", "none");
-            $("#word").html("<div onclick='nextRound();' style='cursor: pointer;'>Correct. Click for next word</div>");
-        }
+    if ($(clicked).attr("data-clicked")!=="1") {
+        $(clicked).attr("data-clicked", "1");
+        g.currentGuess += letter;
+        $("#answer").text(g.currentGuess);
     }
 }
+

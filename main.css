@@ -21,7 +21,9 @@
   display: inline-block; }
 
 #reset {
-  display: inline-block; }
+  display: inline-block;
+  font-size: 3em;
+  margin-left: 25px; }
 
 .wordLetter {
   display: inline-block;
