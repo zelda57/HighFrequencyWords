@@ -1,12 +1,44 @@
 ﻿@mixin letters() {
     font-size: 4em;
-    color: red;
     letter-spacing: .3em;
 }
 
 body {
-    
+    font-family: "Courier New", Courier, monospace;
 }
 
+#wordHolder {
+    margin-top: 50px;
+}
 
+#wordHolderInner {
+    text-align: center;
+}
+
+#word {
+    display: inline-block;
+}
+
+.letter {
+    @include letters();
+    color: red;
+    display: inline-block;
+}
+
+.letterPicked {
+    color: silver;
+}
+
+#resetHolder {
+    @include letters();
+    display: inline-block;
+}
+
+#answerHolderInner {
+    text-align: center;
+}
+
+#answer {
+    display: inline-block;
+}
 
