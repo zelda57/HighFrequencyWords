@@ -1,6 +1,12 @@
 ﻿body {
   font-family: "Courier New", Courier, monospace; }
 
+#answerTick {
+  position: absolute;
+  color: green;
+  top: -50px;
+  -webkit-transform: translate(-50%, 0); }
+
 #wordHolder {
   margin-top: 50px; }
 
@@ -8,7 +14,8 @@
   text-align: center; }
 
 #word {
-  display: inline-block; }
+  display: inline-block;
+  cursor: pointer; }
 
 .letter {
   font-size: 4em;
@@ -22,11 +29,26 @@
 #resetHolder {
   font-size: 4em;
   letter-spacing: .3em;
-  display: inline-block; }
+  display: inline-block;
+  cursor: pointer; }
 
 #answerHolderInner {
   text-align: center; }
 
 #answer {
   display: inline-block; }
+
+#endRoundMessage {
+  text-align: center;
+  font-size: 4em; }
+
+#score {
+  text-align: center;
+  font-size: 4em; }
+
+#nextRound {
+  text-align: center;
+  font-size: 2em;
+  color: navy;
+  cursor: pointer; }
 
