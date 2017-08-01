@@ -73,6 +73,7 @@ var module = (function () {
     }
 
     function letterClicked(e) {
+        //something clicked within wordHolderInner
         if (e.target.id === "reset") {
             resetClicked();
         } else {
