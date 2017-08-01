@@ -27,10 +27,24 @@ var module = (function () {
         globs.currentLetterstried = "";
         globs.answer = "";
 
+        resetScreen();
+        
         // run functions
         pickWord();
         displayWord();
         newRoundEventsCreate();
+    }
+
+    function resetScreen() {
+        //reset screen stuff
+        $("#word").text("");
+        $("#answer").text("");
+        $("#endRoundMessage").text("");
+        $("#answerTicked").hide();
+        $("#nextRound").hide();
+        $("#nextRound").unbind();
+        $("#reset").show();
+        $("#answerTick").hide();
     }
 
     function pickWord() {
@@ -95,8 +109,9 @@ var module = (function () {
     function resetClicked() {
         // clicked reset to removed checked letters
         $(".letter").removeClass("letterPicked").attr("data-used","0");
-        $("#answer").html("");
         globs.answer = "";
+        resetScreen();
+        displayWord();
         console.log("Reset");
     }
 
@@ -104,9 +119,37 @@ var module = (function () {
         // spawned after click. See if all letters clicked
         if (globs.currentWord.length === globs.answer.length) {
             if (globs.currentWord == globs.answer) {
-                console.log("Correct")
-            } else { console.log("Wrong");}
+                correctAnswer();
+            } else { 
+                wrongAnswer()
+            }
         } else { console.log("all letters not picked yet");}
+    }
+
+    function correctAnswer() {
+        //picked the correct letters
+        console.log("Correct")
+        //tick
+        $("#answerTick").css({ "top": "-50px", "left": "50%"})
+        $("#answerTick").animate({"top": "50%", "font-size":"10em"},1000);
+        $("#answerTick").show();
+
+        $("#word").text("");
+        $("#endRoundMessage").text("Correct!");
+        $("#reset").hide();
+        showNextRound();
+    }
+
+    function wrongAnswer() {
+        console.log("Wrong");
+        $("#endRoundMessage").text("Wrong!");
+        showNextRound();
+    }
+
+    function showNextRound() {
+        $("#nextRound").show();
+        $("#nextRound").click(function () { newRound() });
+        
     }
 
     // start app
