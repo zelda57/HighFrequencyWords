@@ -1,1 +1,32 @@
-﻿
+﻿body {
+  font-family: "Courier New", Courier, monospace; }
+
+#wordHolder {
+  margin-top: 50px; }
+
+#wordHolderInner {
+  text-align: center; }
+
+#word {
+  display: inline-block; }
+
+.letter {
+  font-size: 4em;
+  letter-spacing: .3em;
+  color: red;
+  display: inline-block; }
+
+.letterPicked {
+  color: silver; }
+
+#resetHolder {
+  font-size: 4em;
+  letter-spacing: .3em;
+  display: inline-block; }
+
+#answerHolderInner {
+  text-align: center; }
+
+#answer {
+  display: inline-block; }
+
