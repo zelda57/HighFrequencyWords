@@ -1,3 +1,7 @@
+/*
+Test high frequency words with a word jumble
+*/
+
 $(document).ready(function () {
     // doc ready 
     m = new module();
